@@ -91,6 +91,7 @@ course_name_column = courses.columns[0]
 related_courses = courses.loc[courses[course_name_column] == entity_name]
 
 st.page_link("streamlit_app.py", label="← Back to directory")
+st.page_link("pages/nearby_map.py", label="Explore listings on the map")
 
 logo_column = next(
     (column for column in profile.index if column.lower().endswith("logo url")),

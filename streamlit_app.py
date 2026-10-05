@@ -170,6 +170,7 @@ st.markdown(
     f'<div class="directory-subtitle">Browse {entity_singular} profiles from across Nepal.</div>',
     unsafe_allow_html=True,
 )
+st.page_link("pages/nearby_map.py", label="Explore listings on the map")
 
 left_column, right_column = st.columns([0.27, 0.73], gap="large")
 
