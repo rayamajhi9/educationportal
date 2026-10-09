@@ -32,6 +32,26 @@ st.markdown(
         box-shadow: 0 2px 6px rgba(15, 23, 42, .05); margin-bottom: .8rem;
         padding: 1rem 1.1rem;
     }
+    @media (max-width: 900px) {
+        [data-testid="stMainBlockContainer"] {
+            padding-left: 1.25rem; padding-right: 1.25rem;
+        }
+        .detail-logo { max-height: 150px; max-width: 150px; }
+        .stHorizontalBlock { flex-wrap: wrap; }
+        .stHorizontalBlock > [data-testid="stColumn"] {
+            min-width: min(100%, 18rem);
+        }
+    }
+    @media (max-width: 600px) {
+        [data-testid="stMainBlockContainer"] {
+            padding-left: .75rem; padding-right: .75rem;
+        }
+        [data-testid="stAppViewContainer"] > .main { padding-top: .75rem; }
+        .detail-logo { max-height: 96px; max-width: 96px; }
+        .field-label { font-size: .72rem; }
+        .field-value { font-size: .9rem; }
+        .stHorizontalBlock > [data-testid="stColumn"] { min-width: 100%; }
+    }
     </style>
     """,
     unsafe_allow_html=True,

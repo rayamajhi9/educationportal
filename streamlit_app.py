@@ -125,6 +125,32 @@ st.markdown(
     .listing-meta { color: #64748b; font-size: .83rem; margin-top: .55rem; }
     .result-count { color: #475569; font-size: .92rem; margin: .1rem 0 .8rem; }
     div[data-testid="stButton"] button { border-radius: 6px; }
+    @media (max-width: 900px) {
+        [data-testid="stMainBlockContainer"] {
+            padding-left: 1.25rem; padding-right: 1.25rem;
+        }
+        .stHorizontalBlock:has(.filter-title) {
+            flex-wrap: wrap; gap: 1rem;
+        }
+        .stHorizontalBlock:has(.filter-title) > [data-testid="stColumn"] {
+            flex: 1 1 100%; max-width: 100%; min-width: 0; width: 100%;
+        }
+    }
+    @media (max-width: 600px) {
+        [data-testid="stMainBlockContainer"] {
+            padding-left: .75rem; padding-right: .75rem;
+        }
+        [data-testid="stAppViewContainer"] > .main { padding-top: .75rem; }
+        h1 { font-size: 1.55rem !important; line-height: 1.2; }
+        .directory-subtitle { margin-bottom: .8rem; }
+        .listing-card { gap: .75rem; min-height: 0; padding: .8rem; }
+        .listing-logo, .listing-logo-fallback {
+            flex-basis: 58px; height: 58px; width: 58px;
+        }
+        .listing-heading { font-size: 1.05rem; }
+        .listing-city, .listing-location, .listing-email { font-size: .85rem; }
+        .listing-meta { font-size: .76rem; }
+    }
     </style>
     """,
     unsafe_allow_html=True,

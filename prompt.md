@@ -123,6 +123,9 @@ dataset):
 
 - Show the institution name, logo, city/address, and available contact actions
   (email, phone, official website).
+- Adapt the detail header, contact actions, profile fields, and course information
+  to narrow screens. Stack columns as needed and prevent long values from causing
+  horizontal page scrolling.
 - Show every field from that institution's workbook row, not only a curated
   subset. Render missing values as `N/A`.
 - Show all courses associated with the institution. Include every course-sheet
@@ -137,6 +140,10 @@ dataset):
 - Keep the listing search and map together in a clear split layout. Show matching
   listings alongside an interactive map; allow map controls such as zoom and
   fullscreen.
+- Adapt the nearby results/map layout to tablet and mobile widths. Stack the map
+  and results on narrow screens, keep map controls and the location action usable,
+  and avoid horizontal overflow. Keep map-only mode and its filter drawer usable
+  at mobile viewport sizes.
 - On desktop, keep the nearby page title/search/filter controls sticky while
   scrolling, make the left results list independently scrollable with its heading
   and result count kept in view, and keep the map panel sticky below the controls
@@ -155,20 +162,42 @@ dataset):
   districts are selected; otherwise fit to valid matching listing coordinates.
   Provide a useful Nepal-wide starting view when neither exists, and a reasonable
   zoom for a single point.
-- Map hover details should identify the institution and its location.
+- Offer a **Your location** control that explicitly requests browser geolocation
+  permission, centers the map on the returned coordinates, and shows a distinct
+  user-location marker. Do not request or store location until the user activates
+  the control; report denied, unavailable, unsupported, and timeout cases clearly.
+- Map hover details should show the institution logo, name, location, email, website,
+  and available social links. If the user clicks the corresponding map pin, open
+  that institution's detail page.
+- Color listing pins by the institution's College Type / School Type and display
+  a matching map legend. Use a clearly distinct legend entry for the user's GPS
+  location marker when one has been requested.
 - Listing cards should show logo when valid, name, district/address, and
   institution type, with a **View details** action.
 - Paginate map-page listing results and reset pagination when filters, search,
   or dataset changes.
 - Include free-text search by institution name, city, and address.
 
-#### Airbnb-inspired filter interaction
+#### Map-only results and filter sidebar
 
-- Use a compact **Filters** button near search, with a count of active filter
-  groups.
-- Clicking it opens a centered modal/dialog with a clear title, close control,
-  grouped sections, scrollable content, and persistent footer actions.
-- Provide the same seven filter fields in the dialog, in this order:
+- Use Google Maps' split results/map layout as the interaction reference. Keep the
+  existing Streamlit and PyDeck stack; do not add a mapping dependency.
+- Keep the regular nearby page focused on search and results; do not show the
+  map-only filter controls there. Provide a **Zoom map** action that
+  switches into a map-only, viewport-filling mode with an **Exit map** action.
+- In map-only mode, show a collapsible left sidebar beside the map. Its results
+  view includes listing search, the applied-filter summary, matching listing cards,
+  and pagination. Keep the results independently scrollable so all results and
+  controls remain reachable. On narrow screens, show the sidebar as an overlay
+  drawer without horizontal overflow.
+- Show an **All filters** control on the map with the active filter-group count.
+  Selecting it switches the left sidebar from results to the filter view instead
+  of opening another panel over the map. Provide a back-arrow action to return to
+  results without applying draft changes.
+- In the filter view, keep a header with back, **Clear**, and **Done** actions,
+  grouped sections, and a scrollable filter body. **Clear** clears draft choices;
+  **Done** applies them and returns to results.
+- Provide the same seven filter fields in the panel, in this order:
   1. City / District
   2. Main stream
   3. Affiliated by
@@ -178,10 +207,17 @@ dataset):
   7. Duration
 - Use multi-select controls with a clear “Choose options” empty state. Keep
   selected options visible and editable.
-- Provide **Clear all** and **Show results** actions in the dialog footer.
-  Changes are staged while the dialog is open and affect results when applied.
-  Clear all clears draft choices; applying an empty draft resets filters.
-- Closing/dismissing the dialog must not apply uncommitted changes.
+- Stage filter edits until **Done** is selected. Applying an empty draft resets all
+  applied filters. Returning to results or collapsing the sidebar must not apply
+  uncommitted changes; preserve draft selections when reopening, applied filters,
+  and the active-filter count.
+- Keep the map controls, location action, and **Exit map** available when the
+  sidebar is collapsed. Place the results-sidebar collapse/restore control on the
+  sidebar's vertical map-facing edge, centered vertically, rather than in the
+  top toolbar or results list.
+- In map-only mode, place the map-layer selector, zoom controls, and **Your
+  location** control together at the bottom-right of the map. Offer light, street,
+  and dark basemap styles.
 - Show a compact summary of applied filters and update the filter count.
 - The Course fee control must remain visible but disabled with a plain-language
   note when the selected workbook has no fee data.
@@ -221,8 +257,8 @@ dataset):
 - Directory, detail, and map pages remain connected and dataset-aware.
 - All seven requested map filters are present, have clear unavailable states,
   and apply/reset correctly.
-- Search, course-aware filters, pagination, district overlays, map auto-fit,
-  valid map pins, and detail links work.
+- Search, course-aware filters, the collapsible map results/filter sidebar, pagination,
+  district overlays, map auto-fit, valid map pins, and detail links work.
 - Missing, invalid, or out-of-Nepal coordinates do not remove listings from
   results; missing fee values are not fabricated.
 - Validate changes with the narrowest relevant checks available (syntax/type
