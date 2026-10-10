@@ -1404,7 +1404,7 @@ with map_column:
         chart_state = st.pydeck_chart(
             deck,
             height=900 if zoom_map else 520,
-            width="stretch",
+            use_container_width=True,
             key=chart_key,
             on_select="rerun",
             selection_mode="single-object",

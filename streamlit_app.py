@@ -1,5 +1,6 @@
 from html import escape
 from pathlib import Path
+from typing import Optional
 from urllib.parse import urlsplit
 
 import pandas as pd
@@ -449,13 +450,13 @@ with right_column:
                 ]
             )
         )
-        pages_to_show: list[int | None] = []
+        pages_to_show: list[Optional[int]] = []
         for index, number in enumerate(page_numbers):
             if index and number - page_numbers[index - 1] > 1:
                 pages_to_show.append(None)
             pages_to_show.append(number)
 
-        controls: list[tuple[str, int | None]] = [
+        controls: list[tuple[str, Optional[int]]] = [
             ("‹", max(1, current_page - 1)),
             *[
                 (str(number) if number is not None else "…", number)
